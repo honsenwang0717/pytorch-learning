@@ -1,0 +1,82 @@
+# ==========================================
+# Python
+# ==========================================
+# 字节码缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虚拟环境（非常重要！）
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# 分发/打包
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# 测试
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==========================================
+# Jupyter Notebook
+# ==========================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ==========================================
+# 深度学习特定
+# ==========================================
+# 模型权重（通常很大，用网盘/Git LFS另存）
+*.pth
+*.pt
+*.h5
+*.ckpt
+*.pkl
+*.safetensors
+models/pretrained/
+checkpoints/
+
+# 数据集（绝对不要传！）
+data/
+dataset/
+datasets/
+*.csv
+*.json
+*.txt
+!requirements.txt  # 但这个要传
+
+# 日志和输出
+logs/
+runs/
+wandb/
+output/
+results/
+*.log
+tensorboard/
+
+# 配置文件（含密钥）
+config.yaml
+secrets.json
+.env
+
+# ==========================================
+# IDE/编辑器
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==========================================
+# 操作系统
+# ==========================================
+.DS_Store
+Thumbs.db
