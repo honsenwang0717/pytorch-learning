@@ -20,7 +20,9 @@ X, y = make_moons(n_samples=2000, noise=0.25, random_state=42)
 # 把原始数据保存成 CSV，方便查看数据长什么样
 # X 有两列特征 (x1, x2)，y 是标签 (0 或 1)
 import os
-save_dir = os.path.join("datasets", "make_moons")
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+save_dir = os.path.join(PROJECT_ROOT, "data", "make_moons")
 os.makedirs(save_dir, exist_ok=True)
 
 df = pd.DataFrame(X, columns=["x1", "x2"])
@@ -257,7 +259,10 @@ for i in range(2):
 fig.colorbar(im, ax=axes[1, 1])
 
 plt.tight_layout()
-plt.savefig("binary_classification_result.png", dpi=150, bbox_inches="tight")
+output_dir = os.path.join(PROJECT_ROOT, "outputs", "binary_classification")
+os.makedirs(output_dir, exist_ok=True)
+output_path = os.path.join(output_dir, "binary_classification_result.png")
+plt.savefig(output_path, dpi=150, bbox_inches="tight")
 plt.show()
 
-print("\n图片已保存为 binary_classification_result.png")
+print(f"\n图片已保存为 {output_path}")

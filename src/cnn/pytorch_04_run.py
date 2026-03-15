@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 from torch import optim as optim
@@ -5,11 +6,11 @@ import torch.nn.functional as F
 import matplotlib.pyplot as plt
 import numpy as np
 from pytorch_02_model import Model_CNN
-from pytorch_03_data import dataloader, dataset
+from pytorch_03_data import dataloader, dataset, PROJECT_ROOT
 
 # 设置 matplotlib 中文显示（可选，没有中文字体可注释掉）
-# plt.rcParams['font.sans-serif'] = ['SimHei']
-# plt.rcParams['axes.unicode_minus'] = False
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
 
 #(1)检查GPU使用情况
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -26,7 +27,7 @@ loss_history = []          # 每个 batch 的 loss
 epoch_losses = []          # 每个 epoch 的平均 loss
 
 #(5)训练模型
-epochs = 8
+epochs = 70
 for epoch in range(epochs):
     run_losses = []
     for i, data in enumerate(dataloader, 0):
@@ -65,7 +66,9 @@ plt.ylabel("平均 Loss")
 plt.title("每个 Epoch 的平均 Loss")
 plt.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig("training_loss.png", dpi=150, bbox_inches="tight")
+output_dir = os.path.join(PROJECT_ROOT, "outputs", "cnn")
+os.makedirs(output_dir, exist_ok=True)
+plt.savefig(os.path.join(output_dir, "training_loss.png"), dpi=150, bbox_inches="tight")
 plt.show()
 
 # 3. CNN 看到的样本图像：从 dataloader 取一个 batch 显示
@@ -84,7 +87,7 @@ for idx in range(n_show):
     axes[idx].axis("off")
 plt.suptitle("CNN 输入样本（一个 batch 中的前 8 张）")
 plt.tight_layout()
-plt.savefig("sample_images.png", dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(output_dir, "sample_images.png"), dpi=150, bbox_inches="tight")
 plt.show()
 
 

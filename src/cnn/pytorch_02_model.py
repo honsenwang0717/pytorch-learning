@@ -30,7 +30,7 @@ class Model_CNN(nn.Module):
         #希望有个过度，所以用了两个全连接层，或者说，中间有个隐藏层。
         self.fc = nn.Linear(32*12*12,100) 
         #经验的做法，理论上也可以只有一个全连接层，但是那样的话，中间的计算量会很大，所以用了两个全连接层。
-        self.fcc = nn.Linear(100,10)
+        self.fcc = nn.Linear(100,7)
 
         #还有一些其他的可能用到的层，比如dropout，全连接层等
         self.dropout = nn.Dropout(0.5)
@@ -61,7 +61,7 @@ class Model_CNN(nn.Module):
         x = self.maxPool(x)
         x = x.view(-1,32*12*12) #将x展平，-1表示自动计算维度，32*12*12是展平后的维度。这个是展平操作，将多维度的tensor展平成一维的tensor。 还可以用x = torch.flatten(x,1)或者x=x.flatten(1)来展平，1表示从第1维度开始展平。
         x = F.relu(self.fc(x)) #因为是线性的转化，所以需要用激活函数来处理。
-        x = F.relu(self.fcc(x))#因为是线性的转化，所以需要用激活函数来处理。
+        x = self.fcc(x) # 输出层不加激活函数，CrossEntropyLoss 内部自带 Softmax
 
         return x
 
